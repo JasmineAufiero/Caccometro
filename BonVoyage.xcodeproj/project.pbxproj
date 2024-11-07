@@ -29,9 +29,24 @@
 		474721A42CBC52E800088BD2 /* BonVoyageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BonVoyageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		47C768C52CC40B9500F1DA00 /* Exceptions for "BonVoyage" folder in "BonVoyageUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				View/Buttons/AddButtonView.swift,
+				View/RankingView.swift,
+				ViewModel/RankingViewModel.swift,
+			);
+			target = 474721A32CBC52E800088BD2 /* BonVoyageUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4747218C2CBC52E600088BD2 /* BonVoyage */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				47C768C52CC40B9500F1DA00 /* Exceptions for "BonVoyage" folder in "BonVoyageUITests" target */,
+			);
 			path = BonVoyage;
 			sourceTree = "<group>";
 		};
