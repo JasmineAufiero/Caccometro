@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
-    @StateObject private var tripViewModel = TripViewModel()
+    @Environment(\.managedObjectContext) private var viewContext
+    @StateObject private var tripViewModel: TripViewModel
     @State private var isShowingSheet = false
+    
+    init() { let context = DataController.shared.container.viewContext
+        _tripViewModel = StateObject(wrappedValue: TripViewModel(context: context)) }
+    
     var body: some View {
         
         NavigationView {
@@ -71,6 +77,6 @@ struct NoTripsYet: View {
 }
 
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}

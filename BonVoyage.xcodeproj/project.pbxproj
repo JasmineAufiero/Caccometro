@@ -33,6 +33,8 @@
 		47C768C52CC40B9500F1DA00 /* Exceptions for "BonVoyage" folder in "BonVoyageUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				DataModel/DataController.swift,
+				DataModel/DataModel.xcdatamodeld,
 				View/Buttons/AddButtonView.swift,
 				View/RankingView.swift,
 				ViewModel/RankingViewModel.swift,

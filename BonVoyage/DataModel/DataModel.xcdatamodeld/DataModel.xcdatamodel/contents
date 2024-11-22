@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24A348" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="CompetitorEntity" representedClassName="CompetitorEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="itemsPerDay" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="points" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="trip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TripEntity"/>
+    </entity>
+    <entity name="TripEntity" representedClassName="TripEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="destination" optional="YES" attributeType="String"/>
+        <attribute name="finalDate" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="initialDate" optional="YES" attributeType="String"/>
+        <relationship name="competitors" optional="YES" toMany="YES" minCount="1" maxCount="10" deletionRule="Nullify" destinationEntity="CompetitorEntity"/>
+    </entity>
+</model>

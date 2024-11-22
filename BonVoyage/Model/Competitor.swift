@@ -11,9 +11,9 @@ import SwiftUICore
 struct Competitor :Hashable, Equatable {
     var id: UUID = UUID()
     var name: String
-    var points: Int?
-    var itemsPerDay: Int? // numero di cacche al giorno
-    var colors: Color?
+    var points: Int16?
+    var itemsPerDay: Int16? // numero di cacche al giorno
+//    var color: Color?
     var image: String?
-    var locations: [Location]?
+//    var locations: [Location]?
 }

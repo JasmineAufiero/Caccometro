@@ -101,7 +101,7 @@ struct AddCompetitorsListCard: View {
                         let avatar = tripViewModel.getShuffledAvatar(competitorsCount)
                         
                         if !competitorName.isEmpty {
-                            tripViewModel.addCompetitor(Competitor( name: competitorName, points: 0, image: avatar))
+                            tripViewModel.addCompetitor(Competitor(name: competitorName, points: 0, itemsPerDay: 0, image: avatar))
                         }
                         
                         self.competitorName.removeAll()
