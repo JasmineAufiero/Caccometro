@@ -32,7 +32,7 @@ struct RuleCardInside: View {
         VStack(alignment: .center) {
             
             HStack {
-                Text(rule.title + "(" + rule.pointsDescription + ")")
+                Text(rule.name ?? "" + "(" + rule.pointsDescription + ")")
                     .lineLimit(4)
             }
             .font(.title)
@@ -61,6 +61,6 @@ struct RuleCardInside: View {
 }
 
 #Preview {
-    RuleCardView(rule: Rule(title: "Nottambulo", description: "Ciascuna cacca notturna (ovvero rilasciata dalle 2 alle 6 di mattina) verrà premiata con un punto aggiuntivo", image: "moon.stars.fill", points: 1, ruleType: .events))
+    RuleCardView(rule: Rule(name: "Nottambulo", description: "Ciascuna cacca notturna (ovvero rilasciata dalle 2 alle 6 di mattina) verrà premiata con un punto aggiuntivo", image: "moon.stars.fill", points: 1, ruleType: .events))
 }
 

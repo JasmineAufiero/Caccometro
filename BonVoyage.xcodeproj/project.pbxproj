@@ -35,8 +35,11 @@
 			membershipExceptions = (
 				DataModel/DataController.swift,
 				DataModel/DataModel.xcdatamodeld,
+				Model/GenericItem.swift,
 				View/Buttons/AddButtonView.swift,
+				View/CarouselView.swift,
 				View/RankingView.swift,
+				View/Sheets/AddItemView.swift,
 				ViewModel/RankingViewModel.swift,
 			);
 			target = 474721A32CBC52E800088BD2 /* BonVoyageUITests */;

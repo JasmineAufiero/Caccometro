@@ -95,9 +95,7 @@ struct AddCompetitorsListCard: View {
                     AddButtonView(action: {
                         
                         tripViewModel.setShuffledAvatars()
-                        
                         let competitorsCount = tripViewModel.competitorsCount
-                        
                         let avatar = tripViewModel.getShuffledAvatar(competitorsCount)
                         
                         if !competitorName.isEmpty {
@@ -113,7 +111,7 @@ struct AddCompetitorsListCard: View {
                 
                 List {
                     ForEach(competitors, id: \.self) { competitor in
-                        AddCompetitorsCard(image: competitor.image, name: competitor.name)
+                        CompetitorCard(image: competitor.image, name: competitor.name)
                     }
                     .onDelete { indexSet in
                         tripViewModel.competitors.remove(atOffsets: indexSet)

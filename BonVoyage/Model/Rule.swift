@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Rule: Equatable, Identifiable {
+struct Rule: Equatable, Identifiable, Hashable {
     var id: UUID = UUID()
-    var title: String
+    var name: String?
     var description: String?
     var image: String?
     var points: Int

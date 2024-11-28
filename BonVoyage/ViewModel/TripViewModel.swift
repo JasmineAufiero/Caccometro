@@ -11,11 +11,12 @@ import CoreData
 class TripViewModel: ObservableObject, Observable {
     
     @Published var trip: TripEntity?
-    @Published var competitors: [Competitor] = []
+    @Published var competitors: [Competitor] = [] // deve essere sempre aggiornata
     var startDate: String?
     var endDate: String?
     var destinationName: String?
     
+    //TODO: nuova gestione avatar come dictionary nomeavatar:isused
     var avatars: [String] = ["character1", "character2", "character3", "character4", "character5"]
     
     var shuffledAvatars : [String] = []
@@ -36,22 +37,25 @@ class TripViewModel: ObservableObject, Observable {
     }
     
     func removeCompetitor(_ competitor: Competitor) {
+        // Rimuovi il competitor dalla lista in memoria
         self.competitors.removeAll(where: { $0.id == competitor.id })
+
+        // Trova il CompetitorEntity corrispondente e rimuovilo da CoreData
+        let request: NSFetchRequest<CompetitorEntity> = CompetitorEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", competitor.id as CVarArg)
+        
+        do {
+            let competitorEntities = try context.fetch(request)
+            for entity in competitorEntities {
+                context.delete(entity)
+            }
+            saveContext()
+            loadCompetitors()
+        } catch {
+            print("Errore durante la rimozione del competitor: \(error)")
+        }
     }
-    
-    func removeCompetitor(at offset: IndexSet) {
-        self.competitors.remove(atOffsets: offset)
-    }
-    
-    func removeCompetitor(_ competitor: CompetitorEntity) {
-        context.delete(competitor)
-        saveContext()
-        loadCompetitors()
-    }
-    
-    func removeAllCompetitors() {
-        self.competitors.removeAll()
-    }
+
     
     func competitorsToCompetitorEntities() -> [CompetitorEntity] {
         competitors.map { competitor in
@@ -66,6 +70,19 @@ class TripViewModel: ObservableObject, Observable {
         }
     }
     
+    func competitorEntitiesToCompetitors(_ competitorEntities: [CompetitorEntity]) -> [Competitor] {
+        return competitorEntities.map { competitorEntity in
+            Competitor(
+                id: competitorEntity.id ?? UUID(),
+                name: competitorEntity.name ?? "",
+                points: competitorEntity.points,
+                itemsPerDay: competitorEntity.itemsPerDay, 
+                image: competitorEntity.image ?? ""
+            )
+        }
+    }
+
+    
     func saveCompetitorsToCoreData() {
         let competitorEntities = competitorsToCompetitorEntities()
         for competitorEntity in competitorEntities {
@@ -74,7 +91,7 @@ class TripViewModel: ObservableObject, Observable {
         saveContext()
     }
     
-    func addCompetitor(name: String, image: String) {
+    func addCompetitorEntity(name: String, image: String) {
         let newCompetitor = Competitor(id: UUID(), name: name, image: image)
         competitors.append(newCompetitor)
         saveCompetitorsToCoreData()
@@ -133,6 +150,7 @@ class TripViewModel: ObservableObject, Observable {
             saveContext()
             self.trip = nil
         }
+        competitors.removeAll()
     }
 
     func loadTrip() {

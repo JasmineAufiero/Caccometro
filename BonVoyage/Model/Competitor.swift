@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUICore
 
-struct Competitor :Hashable, Equatable {
+struct Competitor :Hashable, Equatable, Identifiable {
     var id: UUID = UUID()
-    var name: String
+    var name: String?
     var points: Int16?
     var itemsPerDay: Int16? // numero di cacche al giorno
 //    var color: Color?
