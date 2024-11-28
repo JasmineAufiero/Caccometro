@@ -12,8 +12,10 @@ struct GenericItem: Identifiable, Hashable, Equatable {
     var name: String?
     var image: String?
     var isSelected: Bool?
-    var pageWidth: CGFloat?
-    var pageHeight: CGFloat?
+    var pageWidth: CGFloat // TODO: li elimino da qui? Dipende da se voglio variare la grandezza della rule rispetto all'item del concorrente
+    var pageHeight: CGFloat
+    var pointsDescription: String?
+    var description: String?
 }
 
 

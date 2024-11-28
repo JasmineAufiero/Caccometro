@@ -19,7 +19,6 @@ struct RuleCardView: View {
             )
             .padding(.all, 20.0)
             .frame(width: 300, height: 400)
-    
     }
 }
 

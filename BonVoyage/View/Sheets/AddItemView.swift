@@ -9,7 +9,8 @@ import SwiftUI
 
 struct AddItemView: View {
 //    @EnvironmentObject var tripViewModel: TripViewModel
-//    @Binding var isShowingItemSheet: Bool
+    @Binding var isShowingItemSheet: Bool
+    var rankingViewModel = RankingViewModel()
     
     var body: some View {
         Form {
@@ -18,11 +19,15 @@ struct AddItemView: View {
                 Text("Scegli il concorrente a cui vuoi assegnare dei punti.").font(.headline).fontWeight(.regular)
 
                 //TODO: sostituire con competitor presi da viewmodel
-                CarouselView(competitors: [
+                let competitors = [
                     Competitor(id: UUID(), name: "Competitor 1", image: "character1"),
                     Competitor(id: UUID(), name: "Competitor 2", image: "character2"),
                     Competitor(id: UUID(), name: "Competitor 3", image: "character3")
-                                       ])
+                                       ]
+                
+                let items = rankingViewModel.mapcompetitorsToGenericItems(competitors)
+                CarouselView(items: items)
+
             }
             
             Section {
@@ -31,6 +36,11 @@ struct AddItemView: View {
                 
                 VStack {
                     Text("Punteggio Località").font(.headline).fontWeight(.semibold)
+                    
+                    let rules = [Rule(name: "Nome Regola" , description: "Descrizione molto lunga di una regola. che verrà ottenuto attraverso un bellissimo magico long press", image: "rule", points: 1, ruleType: .locations ), Rule(name: "Nome Regola2" , description: "Descrizione molto lunga di una regola. che verrà ottenuto attraverso un bellissimo magico long press", image: "rule", points: 1, ruleType: .locations )]
+                    
+                    let itemrules = rankingViewModel.mapRulesToGenericItems(rules)
+                    CarouselView(items: itemrules)
                     
                     Text("Punteggio Evento").font(.headline).fontWeight(.semibold)
                     
@@ -59,6 +69,6 @@ struct AddItemView: View {
     }
 }
 
-#Preview {
-    AddItemView()
-}
+//#Preview {
+//    AddItemView()
+//}

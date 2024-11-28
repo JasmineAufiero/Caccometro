@@ -7,7 +7,6 @@
 
 import Foundation
 
-extension RulesView {
     class RulesViewModel {
         
         let descriptionRules = "I punti associati a ciascuna cacca si otterranno nel seguente modo: il punteggio base verrà calcolato sulla base della località dichiarata, a cui verrà sommato un eventuale bonus dovuto all'evento e infine detratto un malus, nel caso si siano verificate le condizioni qui sotto descritte. \nCiascun evento o luogo non previsto dal regolamento varrà solo 1 punto."
@@ -32,9 +31,13 @@ extension RulesView {
             return rules.first(where: { $0.name == name })
         }
         
+        func getRule(for id: UUID) -> Rule? {
+            rules.first(where: { $0.id == id })
+        }
+        
         func getPoints(for rule: Rule) -> Int? {
             return rules.firstIndex(of: rule)
         }
         
     }
-}
+

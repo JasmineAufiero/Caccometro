@@ -10,6 +10,7 @@ import SwiftUI
 struct RankingView: View {
     @EnvironmentObject var tripViewModel: TripViewModel
     @State var isShowingSheet: Bool = false
+    @State var isShowingItemSheet: Bool = false
 
     var body: some View {
         Section {
@@ -32,14 +33,22 @@ struct RankingView: View {
                 AddTripView(isShowingSheet: $isShowingSheet)
                     .environmentObject(tripViewModel)
             }
-        }.environmentObject(tripViewModel)
+        }
+        .sheet(isPresented: $isShowingItemSheet, content: {
+                NavigationStack {
+                    // TODO: passare environmentObject
+                    AddItemView(isShowingItemSheet: $isShowingItemSheet)
+//                        .environmentObject(tripViewModel)
+                }
+            })
+        .environmentObject(tripViewModel)
         .navigationBarTitle("Classifica", displayMode: .inline)
         .toolbar {
             // aggiungi cacca
             ToolbarItem(id: "addCompetitor") {
-                // TODO: aggiungere cacca
                 Button {
                     print("Aggiungi cacca")
+                    isShowingItemSheet.toggle()
                 } label: {
                     Label("Aggiungi", systemImage: "plus")
                 }
