@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddCompetitorsCard: View {
+struct CompetitorCard: View {
     var image: String?
     var name: String?
     var ranking: Int?
@@ -47,5 +47,5 @@ struct AddCompetitorsCard: View {
 }
 
 #Preview {
-    AddCompetitorsCard(image: "character5", name: "Porco Magico", ranking: 1, points: 100)
+    CompetitorCard(image: "character5", name: "Porco Magico", ranking: 1, points: 100)
 }
