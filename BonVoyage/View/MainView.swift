@@ -22,8 +22,8 @@ struct MainView: View {
                         }
                     }
             }.tabItem {
-                    Label("Viaggio", systemImage: "airplane")
-                }
+                Label("Viaggio", systemImage: "airplane")
+            }
 
             NavigationView {
                 RulesView()
@@ -37,8 +37,8 @@ struct MainView: View {
                     }
             }
             .tabItem {
-                    Label("Regolamento", systemImage: "book.pages")
-                }
+                Label("Regolamento", systemImage: "book.pages")
+            }
             
 //            MapsView()
 //                .tabItem {

@@ -10,24 +10,17 @@ import SwiftUI
 struct AddItemView: View {
 //    @EnvironmentObject var tripViewModel: TripViewModel
     @Binding var isShowingItemSheet: Bool
-    var rankingViewModel = RankingViewModel()
+    var rankingViewModel: RankingViewModel
+    var rulesViewModel: RulesViewModel = RulesViewModel()
     
     var body: some View {
         Form {
             Section {
                 Text("Concorrente").font(.title2).fontWeight(.semibold)
                 Text("Scegli il concorrente a cui vuoi assegnare dei punti.").font(.headline).fontWeight(.regular)
-
-                //TODO: sostituire con competitor presi da viewmodel
-                let competitors = [
-                    Competitor(id: UUID(), name: "Competitor 1", image: "character1"),
-                    Competitor(id: UUID(), name: "Competitor 2", image: "character2"),
-                    Competitor(id: UUID(), name: "Competitor 3", image: "character3")
-                                       ]
                 
-                let items = rankingViewModel.mapcompetitorsToGenericItems(competitors)
+                let items = rankingViewModel.mapcompetitorsToGenericItems(rankingViewModel.competitors)
                 CarouselView(items: items)
-
             }
             
             Section {
@@ -37,14 +30,16 @@ struct AddItemView: View {
                 VStack {
                     Text("Punteggio Località").font(.headline).fontWeight(.semibold)
                     
-                    let rules = [Rule(name: "Nome Regola" , description: "Descrizione molto lunga di una regola. che verrà ottenuto attraverso un bellissimo magico long press", image: "rule", points: 1, ruleType: .locations ), Rule(name: "Nome Regola2" , description: "Descrizione molto lunga di una regola. che verrà ottenuto attraverso un bellissimo magico long press", image: "rule", points: 1, ruleType: .locations )]
-                    
-                    let itemrules = rankingViewModel.mapRulesToGenericItems(rules)
-                    CarouselView(items: itemrules)
+                    let locationRules = rankingViewModel.mapRulesToGenericItems(rulesViewModel.getLocationsRules())
+                    CarouselView(items: locationRules)
                     
                     Text("Punteggio Evento").font(.headline).fontWeight(.semibold)
+                    let eventRules = rankingViewModel.mapRulesToGenericItems(rulesViewModel.getEventsRules())
+                    CarouselView(items: eventRules)
                     
                     Text("Punteggio Malus").font(.headline).fontWeight(.semibold)
+                    let malusRules = rankingViewModel.mapRulesToGenericItems(rulesViewModel.getMalusRules())
+                    CarouselView(items: malusRules)
                 }
             }
             
@@ -55,14 +50,15 @@ struct AddItemView: View {
             ToolbarItem(placement: .navigationBarTrailing)
             {
                 Button("Salva") {
-//                    isShowingItemSheet.toggle()
+                    //TODO: gestire il salvataggio dell'item e aggiornamento classifica
+                    isShowingItemSheet.toggle()
                 }
             }
             
             ToolbarItem(placement: .navigationBarLeading)
             {
                 Button("Annulla") {
-//                    isShowingItemSheet.toggle()
+                    isShowingItemSheet.toggle()
                 }
             }
         }

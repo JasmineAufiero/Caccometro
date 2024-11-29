@@ -20,10 +20,9 @@ struct ContentView: View {
         
         NavigationView {
             if tripViewModel.trip != nil {
-                VStack {
-                    // Aggiungere classifica con button di modifica viaggio e aggiungi nuovo viaggio (rimuovendo quello attualmente creato)
-                    RankingView().environmentObject(tripViewModel)
-                }
+                // Aggiungere classifica con button di modifica viaggio e aggiungi nuovo viaggio (rimuovendo quello attualmente creato)
+                RankingView(tripViewModel: tripViewModel)
+                    .environmentObject(tripViewModel)
             }
             else {
                 NoTripsYet(isShowingSheet: $isShowingSheet)

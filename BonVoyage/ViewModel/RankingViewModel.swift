@@ -7,12 +7,14 @@
 
 import Foundation
 
-class RankingViewModel {
-    var competitors: [Competitor] = [] // capire come prender i competitors
+class RankingViewModel: ObservableObject{
+    @Published var competitors: [Competitor] = []
     
-    // ritorna i competitors ordinati per punti
+    init(competitors: [Competitor]) { self.competitors = competitors }
+    
+    /// ritorna i competitors ordinati per punti
     func getRanking() -> [Competitor] {
-        return competitors
+        return competitors.sorted { ($0.points) ?? 0 > ($1.points) ?? 0 }
     }
     
     /// funzione che effettua il mapping da Competitor a GenericItem per la costruzione del carosello per la selezione del competitor in AddItemView
