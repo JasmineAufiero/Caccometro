@@ -17,8 +17,7 @@ struct ContentView: View {
         _tripViewModel = StateObject(wrappedValue: TripViewModel(context: context)) }
     
     var body: some View {
-        
-        NavigationView {
+        Section {
             if tripViewModel.trip != nil {
                 // Aggiungere classifica con button di modifica viaggio e aggiungi nuovo viaggio (rimuovendo quello attualmente creato)
                 RankingView(tripViewModel: tripViewModel)
@@ -33,7 +32,7 @@ struct ContentView: View {
                 AddTripView(isShowingSheet: $isShowingSheet)
                     .environmentObject(tripViewModel)
             }
-        }.environmentObject(tripViewModel)
+        }
     }
 }
 
