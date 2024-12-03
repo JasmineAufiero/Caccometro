@@ -11,9 +11,8 @@ struct RuleCardView: View {
     var rule: Rule
     
     var body: some View {
-        
         RoundedRectangle(cornerRadius: 20)
-            .fill(Color.clear)
+            .fill(Color.blue.opacity(0.5))
             .overlay(
                 RuleCardInside(rule: rule)
             )
@@ -21,6 +20,7 @@ struct RuleCardView: View {
             .frame(width: 300, height: 400)
     }
 }
+
 
 
 struct RuleCardInside: View {

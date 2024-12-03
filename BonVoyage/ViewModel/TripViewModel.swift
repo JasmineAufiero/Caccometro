@@ -219,6 +219,28 @@ class TripViewModel: ObservableObject, Observable {
         }
     }
     
+    func updateCompetitorPoints(competitorId: UUID, newPoints: Int) {
+        // Trova il competitor nella lista in memoria e aggiorna i suoi punti
+        if let index = competitors.firstIndex(where: { $0.id == competitorId }) {
+            competitors[index].points = Int16(newPoints)
+            
+            // Trova il CompetitorEntity corrispondente e aggiorna i suoi punti in CoreData
+            let request: NSFetchRequest<CompetitorEntity> = CompetitorEntity.fetchRequest()
+            request.predicate = NSPredicate(format: "id == %@", competitorId as CVarArg)
+            
+            do {
+                let competitorEntities = try context.fetch(request)
+                for entity in competitorEntities {
+                    entity.points = Int16(newPoints)
+                }
+                saveContext() // Salva le modifiche in CoreData
+            } catch {
+                print("Errore durante l'aggiornamento dei punti del competitor: \(error)")
+            }
+        }
+    }
+
+    
     private func saveContext() {
         do {
             try context.save()

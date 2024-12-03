@@ -16,16 +16,12 @@ struct RulesCaroselloView: View {
             Text(title)
                 .font(.title2)
                 .fontWeight(.medium)
-                .padding([.top, .trailing], 20.0)
-            Spacer()
         }
         
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
                 ForEach (self.rules) { rule in
-                    RuleCardView(rule: rule)
-                        .background(Color.teal.cornerRadius(10))
-                        
+                    RuleCardView(rule: rule)                    
                 }
             }
         }

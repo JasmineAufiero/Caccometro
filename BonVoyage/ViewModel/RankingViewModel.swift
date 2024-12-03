@@ -7,14 +7,16 @@
 
 import Foundation
 
-class RankingViewModel: ObservableObject{
-    @Published var competitors: [Competitor] = []
+class RankingViewModel: ObservableObject {
+    @Published var competitors: [Competitor]
     
-    init(competitors: [Competitor]) { self.competitors = competitors }
+    init(competitors: [Competitor]) {
+        self.competitors = competitors
+    }
     
     /// ritorna i competitors ordinati per punti
     func getRanking() -> [Competitor] {
-        return competitors.sorted { ($0.points) ?? 0 > ($1.points) ?? 0 }
+        return competitors.sorted { ($0.points ?? 0) > ($1.points ?? 0) }
     }
     
     /// funzione che effettua il mapping da Competitor a GenericItem per la costruzione del carosello per la selezione del competitor in AddItemView
@@ -24,11 +26,11 @@ class RankingViewModel: ObservableObject{
             name: competitor.name,
             image: competitor.image,
             pageWidth: pageWidth ?? 100,
-            pageHeight: pageHeight ?? 100
+            pageHeight: pageHeight ?? 100,
+            itemType: .competitor
         )
     }
 
-    
     func mapcompetitorsToGenericItems(_ competitors: [Competitor]) -> [GenericItem] {
         return competitors.map { competitor in mapCompetitorToGenericItem(competitor, pageWidth: 150, pageHeight: 200) }
     }
@@ -39,17 +41,30 @@ class RankingViewModel: ObservableObject{
             id: rule.id,
             name: rule.name,
             image: rule.image,
-            pageWidth: pageWidth ?? 100,
-            pageHeight: pageHeight ?? 100,
+            pageWidth: pageWidth ?? 300,
+            pageHeight: pageHeight ?? 500,
             pointsDescription: rule.pointsDescription,
-            description: rule.description
+            description: rule.description,
+            itemType: .rule
         )
     }
     
     func mapRulesToGenericItems(_ rules: [Rule]) -> [GenericItem] {
-        return rules.map { rule in mapRuleToGenericItem(rule, pageWidth: 150, pageHeight: 200) }
-
+        return rules.map { rule in mapRuleToGenericItem(rule, pageWidth: 300, pageHeight: 500) }
     }
     
-
+    func setCompetitorPoints(items: [GenericItem]) -> Int {
+        var points = 0
+        for item in items {
+            if let pointsDescription = item.pointsDescription, let itemPoints = Int(pointsDescription) {
+                points += itemPoints
+            }
+        }
+        return points
+    }
+    
+    func updateCompetitors(_ newCompetitors: [Competitor]) {
+        competitors = newCompetitors
+    }
 }
+

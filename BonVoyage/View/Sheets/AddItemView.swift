@@ -8,61 +8,69 @@
 import SwiftUI
 
 struct AddItemView: View {
-//    @EnvironmentObject var tripViewModel: TripViewModel
-    @Binding var isShowingItemSheet: Bool
     var rankingViewModel: RankingViewModel
+    var competitor: Competitor
     var rulesViewModel: RulesViewModel = RulesViewModel()
     
+    @State var selectedEventRule: GenericItem?
+    @State var selectedLocationRule: GenericItem?
+    @State var selectedMalusRule: GenericItem?
+    @State private var selection = 0
+    @EnvironmentObject var tripViewModel: TripViewModel
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
-        Form {
-            Section {
-                Text("Concorrente").font(.title2).fontWeight(.semibold)
-                Text("Scegli il concorrente a cui vuoi assegnare dei punti.").font(.headline).fontWeight(.regular)
-                
-                let items = rankingViewModel.mapcompetitorsToGenericItems(rankingViewModel.competitors)
-                CarouselView(items: items)
+        VStack {
+            Picker(selection: $selection, label: Text("Picker")) {
+                Text("Evento").tag(0)
+                Text("Località").tag(1)
+                Text("Malus").tag(2)
             }
+            .pickerStyle(.segmented)
+            .padding()
             
-            Section {
-                Text("Punteggio").font(.title2).fontWeight(.semibold)
-                Text("Tap per assegnare un punteggio, long tap per leggere i dettagli del regolamento.").font(.headline).fontWeight(.regular)
-                
-                VStack {
-                    Text("Punteggio Località").font(.headline).fontWeight(.semibold)
-                    
-                    let locationRules = rankingViewModel.mapRulesToGenericItems(rulesViewModel.getLocationsRules())
-                    CarouselView(items: locationRules)
-                    
-                    Text("Punteggio Evento").font(.headline).fontWeight(.semibold)
-                    let eventRules = rankingViewModel.mapRulesToGenericItems(rulesViewModel.getEventsRules())
-                    CarouselView(items: eventRules)
-                    
-                    Text("Punteggio Malus").font(.headline).fontWeight(.semibold)
-                    let malusRules = rankingViewModel.mapRulesToGenericItems(rulesViewModel.getMalusRules())
-                    CarouselView(items: malusRules)
-                }
+            switch selection {
+            case 0:
+                CarouselView(selectedItem: $selectedEventRule, items: rankingViewModel.mapRulesToGenericItems(rulesViewModel.rulesForRuleType(ruleType: .events)))
+            case 1:
+                CarouselView(selectedItem: $selectedLocationRule, items: rankingViewModel.mapRulesToGenericItems(rulesViewModel.rulesForRuleType(ruleType: .locations)))
+            case 2:
+                CarouselView(selectedItem: $selectedMalusRule, items: rankingViewModel.mapRulesToGenericItems(rulesViewModel.rulesForRuleType(ruleType: .malus)))
+            default:
+                EmptyView()
             }
-            
         }
-        .navigationBarTitle("Aggiorna la classifica", displayMode: .inline)
-        .toolbarTitleDisplayMode(.inline)
+        .navigationBarTitle("Punteggio", displayMode: .large)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing)
-            {
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Salva") {
-                    //TODO: gestire il salvataggio dell'item e aggiornamento classifica
-                    isShowingItemSheet.toggle()
-                }
-            }
-            
-            ToolbarItem(placement: .navigationBarLeading)
-            {
-                Button("Annulla") {
-                    isShowingItemSheet.toggle()
+                    //TODO: salvare punteggio per competitor
+                    saveCompetitorPoints()
+                    presentationMode.wrappedValue.dismiss() // Chiude la vista
                 }
             }
         }
     }
+    
+    func setSelectedrules() -> [GenericItem] {
+        var rules: [GenericItem] = []
+        if let selectedEventRule {
+            rules.append(selectedEventRule)
+        }
+        if let selectedLocationRule {
+            rules.append(selectedLocationRule)
+        }
+        if let selectedMalusRule {
+            rules.append(selectedMalusRule)
+        }
+        return rules
+    }
+    
+    func saveCompetitorPoints() {
+        let points = rankingViewModel.setCompetitorPoints(items: setSelectedrules())
+        tripViewModel.updateCompetitorPoints(competitorId: competitor.id, newPoints: points)
+    }
+    
 }
 
 //#Preview {

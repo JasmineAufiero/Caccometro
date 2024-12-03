@@ -21,8 +21,7 @@ struct AddTripView: View {
             AddTripInfoCard(destination: $destination, initialDate: $startDate, finalDate: $endDate)
             AddCompetitorsListCard().environment(tripViewModel)
         }
-        .navigationBarTitle("Aggiungi il tuo Viaggio", displayMode: .inline)
-        .toolbarTitleDisplayMode(.inline)
+        .navigationBarTitle("Aggiungi il tuo Viaggio", displayMode: .large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing)
             {

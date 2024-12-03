@@ -13,37 +13,23 @@ struct MainView: View {
         TabView {
             NavigationView {
                 ContentView()
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            VStack {
-                                Text("Viaggio").font(.title).fontWeight(.semibold)
-                            }
-                        }
-                    }
+                    .navigationBarTitle("Viaggio", displayMode: .large)
             }.tabItem {
                 Label("Viaggio", systemImage: "airplane")
             }
-
+            
             NavigationView {
                 RulesView()
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            VStack {
-                                Text("Regolamento").font(.title).fontWeight(.semibold)
-                            }
-                        }
-                    }
+                    .navigationBarTitle("Regolamento", displayMode: .large)
             }
             .tabItem {
                 Label("Regolamento", systemImage: "book.pages")
             }
             
-//            MapsView()
-//                .tabItem {
-//                Label("Mappa", systemImage: "map")
-//            }
+            //            MapsView()
+            //                .tabItem {
+            //                Label("Mappa", systemImage: "map")
+            //            }
         }
     }
 }

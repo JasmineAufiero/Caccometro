@@ -10,7 +10,6 @@ import SwiftUI
 struct RankingView: View {
     @EnvironmentObject var tripViewModel: TripViewModel
     @State var isShowingSheet: Bool = false
-    @State var isShowingItemSheet: Bool = false
     @StateObject var rankingViewModel: RankingViewModel
     
     init(tripViewModel: TripViewModel) {
@@ -19,13 +18,17 @@ struct RankingView: View {
 
     var body: some View {
         Section {
-            if (tripViewModel.trip?.competitors) != nil {
+            if !tripViewModel.competitors.isEmpty {
                 List {
                     Section {
                         ForEach(rankingViewModel.getRanking(), id: \.self) { competitor in
                             let position = rankingViewModel.competitors.firstIndex(of: competitor) ?? 0
-
-                            CompetitorCard(image: competitor.image ?? "", name: competitor.name, ranking: position+1 , points: 0)
+                            
+                            NavigationLink(destination: AddItemView(rankingViewModel: rankingViewModel, competitor: competitor)
+                                .environmentObject(tripViewModel))
+                            {
+                                CompetitorCard(image: competitor.image ?? "", name: competitor.name, ranking: position + 1, points: Int(competitor.points ?? 0))
+                            }
                         }
                     }
                 }
@@ -33,29 +36,17 @@ struct RankingView: View {
                 Text("Non c'è nessun competitor al momento")
             }
         }
+        .onReceive(tripViewModel.$competitors) { newCompetitors in
+            rankingViewModel.updateCompetitors(newCompetitors)
+        }
         .sheet(isPresented: $isShowingSheet) {
             NavigationStack {
                 AddTripView(isShowingSheet: $isShowingSheet)
                     .environmentObject(tripViewModel)
             }
         }
-        .sheet(isPresented: $isShowingItemSheet) {
-            NavigationStack {
-                AddItemView(isShowingItemSheet: $isShowingItemSheet, rankingViewModel: rankingViewModel)
-                    .environmentObject(tripViewModel)
-            }
-        }
         .environmentObject(tripViewModel)
         .toolbar {
-            ToolbarItem(id: "addCompetitor") {
-                Button {
-                    print("Aggiungi cacca")
-                    isShowingItemSheet.toggle()
-                } label: {
-                    Label("Aggiungi", systemImage: "plus")
-                }
-            }
-            
             ToolbarItem(placement: .primaryAction) {
                 Menu {
                     Section {
@@ -72,12 +63,14 @@ struct RankingView: View {
                         }
                     }
                 } label: {
+                    // TODO: Cambiare
                     Label("Aggiungi", systemImage: "ellipsis.circle.fill")
                 }
             }
         }
     }
 }
+
 
 
 
