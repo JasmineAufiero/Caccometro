@@ -30,6 +30,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4711299A2CFFBD59002D9DF8 /* Exceptions for "BonVoyage" folder in "BonVoyage" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 474721892CBC52E600088BD2 /* BonVoyage */;
+		};
 		47C768C52CC40B9500F1DA00 /* Exceptions for "BonVoyage" folder in "BonVoyageUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -50,6 +57,7 @@
 		4747218C2CBC52E600088BD2 /* BonVoyage */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				4711299A2CFFBD59002D9DF8 /* Exceptions for "BonVoyage" folder in "BonVoyage" target */,
 				47C768C52CC40B9500F1DA00 /* Exceptions for "BonVoyage" folder in "BonVoyageUITests" target */,
 			);
 			path = BonVoyage;
@@ -190,6 +198,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					0,
+				);
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
@@ -418,6 +429,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"BonVoyage/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BonVoyage/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -446,6 +458,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"BonVoyage/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BonVoyage/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -16,6 +16,7 @@ struct MainView: View {
                     .navigationBarTitle("Viaggio", displayMode: .large)
             }.tabItem {
                 Label("Viaggio", systemImage: "airplane")
+                
             }
             
             NavigationView {

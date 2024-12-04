@@ -40,6 +40,7 @@ struct AddItemView: View {
                 EmptyView()
             }
         }
+//        .navigationBarHidden(true)
         .navigationBarTitle("Punteggio", displayMode: .large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -67,7 +68,7 @@ struct AddItemView: View {
     }
     
     func saveCompetitorPoints() {
-        let points = rankingViewModel.setCompetitorPoints(items: setSelectedrules())
+        let points = rankingViewModel.setCompetitorPoints(competitor: competitor, items: setSelectedrules())
         tripViewModel.updateCompetitorPoints(competitorId: competitor.id, newPoints: points)
     }
     

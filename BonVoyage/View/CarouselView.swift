@@ -17,7 +17,7 @@ struct CarouselView: View {
         
         GeometryReader { geometry in
             ScrollView(.horizontal) {
-                HStack(spacing: 15) {
+                HStack {
                     ForEach(items.indices, id: \.self) { index in
                         let item = items[index]
                         let isSelected = isItemSelected(item: item)
@@ -39,7 +39,7 @@ struct CarouselView: View {
                                     .offset(x: phase.isIdentity ? 0 : 20, // Moves the Rectangle horizontally
                                             y: phase.isIdentity ? 0 : 20) // and vertically during transition.
                             }
-                            .frame(width: geometry.size.width*0.8, height: geometry.size.height*0.95, alignment: .center)
+                            .frame(width: geometry.size.width*0.9, height: geometry.size.height, alignment: .center)
                     }
                 }
                 .scrollTargetLayout() // Marks the parent layout as a target for scroll behaviors, aiding alignment.
@@ -69,11 +69,15 @@ struct CarouselCardView: View {
                     Image(item.image ?? "person.fill.questionmark")
                         .resizable()
                         .scaledToFit()
+                        .padding()
 
-                    Text(item.name ?? "").bold()
-                    Text(item.pointsDescription ?? "") .bold()
+                    Text(item.name ?? "")
+                        .font(Font.custom("Relieve", size: 15))
+                        .padding()
+                    
+                    Text(item.pointsDescription ?? "")
+                        .padding()
                 }
-                .padding()
                 .background(RoundedRectangle(cornerRadius: 16).fill(isSelected ? Color.yellow : Color.yellow.opacity(0.5)))
                 
             default:

@@ -53,18 +53,19 @@ class RankingViewModel: ObservableObject {
         return rules.map { rule in mapRuleToGenericItem(rule, pageWidth: 300, pageHeight: 500) }
     }
     
-    func setCompetitorPoints(items: [GenericItem]) -> Int {
-        var points = 0
+    func setCompetitorPoints(competitor: Competitor, items: [GenericItem]) -> Int {
+        var points = Int(competitor.points ?? 0)
         for item in items {
             if let pointsDescription = item.pointsDescription, let itemPoints = Int(pointsDescription) {
                 points += itemPoints
             }
         }
-        return points
+        
+        return points > 0 ? points : 0
     }
     
     func updateCompetitors(_ newCompetitors: [Competitor]) {
-        competitors = newCompetitors
+        competitors = newCompetitors.sorted { ($0.points ?? 0) > ($1.points ?? 0) }
     }
 }
 
