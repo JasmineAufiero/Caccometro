@@ -17,6 +17,7 @@ struct ContentView: View {
         _tripViewModel = StateObject(wrappedValue: TripViewModel(context: context)) }
     
     var body: some View {
+        
         Section {
             if tripViewModel.trip != nil {
                 // Aggiungere classifica con button di modifica viaggio e aggiungi nuovo viaggio (rimuovendo quello attualmente creato)
@@ -43,6 +44,10 @@ struct NoTripsYet: View {
     var body: some View {
         
         VStack {
+            Text("Viaggio")
+                .customFont()
+                .navigationBarTitleDisplayMode(.large)
+            
             if let image = UIImage(named: "fillerViaggi") {
                 Image(uiImage: image)
                     .resizable()

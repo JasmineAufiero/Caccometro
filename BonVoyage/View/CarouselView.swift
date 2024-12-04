@@ -72,8 +72,7 @@ struct CarouselCardView: View {
                         .padding()
 
                     Text(item.name ?? "")
-                        .font(Font.custom("Relieve", size: 15))
-                        .padding()
+                        .customFont(.regular, 30)
                     
                     Text(item.pointsDescription ?? "")
                         .padding()

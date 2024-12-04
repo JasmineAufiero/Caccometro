@@ -21,8 +21,13 @@ struct AddTripView: View {
             AddTripInfoCard(destination: $destination, initialDate: $startDate, finalDate: $endDate)
             AddCompetitorsListCard().environment(tripViewModel)
         }
-        .navigationBarTitle("Aggiungi il tuo Viaggio", displayMode: .large)
         .toolbar {
+            ToolbarItem(placement: .principal)
+            {
+                Text("Scheda viaggio")
+                    .customFont()
+            }
+            
             ToolbarItem(placement: .navigationBarTrailing)
             {
                 Button("Salva") {

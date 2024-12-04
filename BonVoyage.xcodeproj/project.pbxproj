@@ -42,6 +42,7 @@
 			membershipExceptions = (
 				DataModel/DataController.swift,
 				DataModel/DataModel.xcdatamodeld,
+				FontExtension.swift,
 				Model/GenericItem.swift,
 				View/Buttons/AddButtonView.swift,
 				View/CarouselView.swift,

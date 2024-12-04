@@ -13,7 +13,6 @@ struct MainView: View {
         TabView {
             NavigationView {
                 ContentView()
-                    .navigationBarTitle("Viaggio", displayMode: .large)
             }.tabItem {
                 Label("Viaggio", systemImage: "airplane")
                 
@@ -21,7 +20,6 @@ struct MainView: View {
             
             NavigationView {
                 RulesView()
-                    .navigationBarTitle("Regolamento", displayMode: .large)
             }
             .tabItem {
                 Label("Regolamento", systemImage: "book.pages")

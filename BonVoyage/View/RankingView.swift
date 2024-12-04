@@ -29,6 +29,14 @@ struct RankingView: View {
                             {
                                 CompetitorCard(image: competitor.image ?? "", name: competitor.name, ranking: position + 1, points: Int(competitor.points ?? 0))
                             }
+                            .padding()
+                            .listRowInsets(EdgeInsets())
+                            .swipeActions(edge: .leading) {
+                                deleteOnePointAction(competitor: competitor)
+                            }
+                            .swipeActions(edge: .trailing) {
+                                addOnePointAction(competitor: competitor)
+                            }
                         }
                     }
                 }
@@ -47,6 +55,12 @@ struct RankingView: View {
         }
         .environmentObject(tripViewModel)
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(tripViewModel.getDestination().capitalizedSentence)
+                    .customFont()
+            }
+            
+            
             ToolbarItem(placement: .primaryAction) {
                 Menu {
                     Section {
@@ -68,6 +82,38 @@ struct RankingView: View {
                 }
             }
         }
+    }
+    
+    /// gestisce lo swipe right: aggiunge un punto al competitor
+    func addOnePointAction(competitor: Competitor) -> some View {
+        Button {
+            let points = rankingViewModel.setOnePointToCompetitor(competitor: competitor, isPositiveOne: true)
+            tripViewModel.updateCompetitorPoints(competitorId: competitor.id, newPoints: points)
+        } label: {
+            VStack {
+                Text("+1")
+                    .bold()
+            }
+        }
+        .tint(Color.green)
+    }
+    
+    
+    /// gestisce lo swipe left: toglie un punto al competitor, se non è già a 0
+    func deleteOnePointAction(competitor: Competitor) -> some View {
+        Button {
+            let points = rankingViewModel.setOnePointToCompetitor(competitor: competitor, isPositiveOne: false)
+            if points > 0 {
+                tripViewModel.updateCompetitorPoints(competitorId: competitor.id, newPoints: points)
+            }
+        }
+        label: {
+            VStack {
+                Text("-1")
+                    .bold()
+            }
+        }
+        .tint(Color.red)
     }
 }
 

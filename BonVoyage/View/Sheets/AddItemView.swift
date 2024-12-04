@@ -41,8 +41,12 @@ struct AddItemView: View {
             }
         }
 //        .navigationBarHidden(true)
-        .navigationBarTitle("Punteggio", displayMode: .large)
         .toolbar {
+            ToolbarItem(placement: .principal, content: {
+                Text("Punteggio")
+                    .customFont()
+            })
+            
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Salva") {
                     //TODO: salvare punteggio per competitor

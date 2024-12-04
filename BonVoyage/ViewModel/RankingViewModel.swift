@@ -64,6 +64,11 @@ class RankingViewModel: ObservableObject {
         return points > 0 ? points : 0
     }
     
+    func setOnePointToCompetitor(competitor: Competitor, isPositiveOne: Bool) -> Int {
+        var points = Int(competitor.points ?? 0)
+        return isPositiveOne ? points+1 : points-1
+    }
+    
     func updateCompetitors(_ newCompetitors: [Competitor]) {
         competitors = newCompetitors.sorted { ($0.points ?? 0) > ($1.points ?? 0) }
     }
