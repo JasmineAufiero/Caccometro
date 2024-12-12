@@ -8,27 +8,34 @@
 import SwiftUI
 
 struct MainView: View {
+    @State private var isActive = false
 
     var body: some View {
-        TabView {
-            NavigationView {
-                ContentView()
-            }.tabItem {
-                Label("Viaggio", systemImage: "airplane")
+        if isActive {
+            TabView {
+                NavigationView {
+                    ContentView()
+                }.tabItem {
+                    Label("Viaggio", systemImage: "airplane")
+                    
+                }
                 
+                NavigationView {
+                    RulesView()
+                }
+                .tabItem {
+                    Label("Regolamento", systemImage: "book.pages")
+                }
+                
+                //            MapsView()
+                //                .tabItem {
+                //                Label("Mappa", systemImage: "map")
+                //            }
             }
-            
-            NavigationView {
-                RulesView()
-            }
-            .tabItem {
-                Label("Regolamento", systemImage: "book.pages")
-            }
-            
-            //            MapsView()
-            //                .tabItem {
-            //                Label("Mappa", systemImage: "map")
-            //            }
+        }
+        // splashScreen
+        else {
+            SplashScreen(isActive: $isActive)
         }
     }
 }

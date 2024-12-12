@@ -49,6 +49,7 @@
 				View/CarouselView.swift,
 				View/RankingView.swift,
 				View/Sheets/AddItemView.swift,
+				View/SplashScreen.swift,
 				ViewModel/RankingViewModel.swift,
 			);
 			target = 474721A32CBC52E800088BD2 /* BonVoyageUITests */;
