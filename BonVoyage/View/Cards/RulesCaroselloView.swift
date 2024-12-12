@@ -19,7 +19,7 @@ struct RulesCaroselloView: View {
         }
         
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 10) {
+            HStack(spacing: 0) {
                 ForEach (self.rules) { rule in
                     RuleCardView(rule: rule)                    
                 }
