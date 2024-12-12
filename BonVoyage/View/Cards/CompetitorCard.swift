@@ -26,10 +26,7 @@ struct CompetitorCard: View {
                 Image(image)
                    .resizable()
                    .frame(width: 50, height: 50)
-                   .clipShape(Circle())
-                   .overlay(Circle().stroke(Color.white, lineWidth: 4))
-                   .padding(.all, 5.0)
-
+                   .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 Text(name)
                     .font(.headline)

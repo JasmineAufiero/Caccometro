@@ -17,7 +17,8 @@ class TripViewModel: ObservableObject, Observable {
     var destinationName: String?
     
     //TODO: nuova gestione avatar come dictionary nomeavatar:isused
-    var avatars: [String] = ["character1", "character2", "character3", "character4", "character5"]
+    var avatars: [String] = ["character1", "character2", "character3", "character4", "character5", "character6","character7", "character8",
+    "character9", "character10"]
     
     var shuffledAvatars : [String] = []
     
