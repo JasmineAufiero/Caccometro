@@ -45,6 +45,7 @@
 				FontExtension.swift,
 				Model/GenericItem.swift,
 				View/Buttons/AddButtonView.swift,
+				View/Cards/PageControl.swift,
 				View/CarouselView.swift,
 				View/RankingView.swift,
 				View/Sheets/AddItemView.swift,

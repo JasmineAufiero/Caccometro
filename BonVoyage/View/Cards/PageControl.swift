@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct PageControl: View {
+    var numberOfPages: Int
+    @Binding var currentPage: Int?
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            ForEach(0..<numberOfPages) { index in
+                Circle()
+                    .fill(currentPage == index ? .yellow : .gray)
+                    .frame(width: 8, height: 8)
+                    .onTapGesture {
+                        self.currentPage = index
+                    }
+            }
+        }
     }
 }
 
-#Preview {
-    PageControl()
-}
+//#Preview {
+//    PageControl()
+//}

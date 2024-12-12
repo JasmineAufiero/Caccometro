@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CarouselView: View {
-    @State var scrollPosition: Int?
+    @State private var scrollPosition: Int? = 0
     @Binding var selectedItem: GenericItem?
     
     let items: [GenericItem]
@@ -16,36 +16,39 @@ struct CarouselView: View {
     var body: some View {
         
         GeometryReader { geometry in
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(items.indices, id: \.self) { index in
-                        let item = items[index]
-                        let isSelected = isItemSelected(item: item)
-                        
-                        CarouselCardView(item: item, isSelected: isSelected)
-                            .onTapGesture {
-                                if selectedItem == item {
-                                    selectedItem = nil
-                                    scrollPosition = nil
-                                } else {
-                                    selectedItem = item
-                                    scrollPosition = index
+            VStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(items.indices, id: \.self) { index in
+                            let item = items[index]
+                            let isSelected = isItemSelected(item: item)
+                            
+                            CarouselCardView(item: item, isSelected: isSelected)
+                                .onTapGesture {
+                                    if selectedItem == item {
+                                        selectedItem = nil
+                                    } else {
+                                        selectedItem = item
+                                    }
                                 }
-                            }
-                            .scrollTransition { content, phase in
-                                content
-                                    .opacity(phase.isIdentity ? 1 : 0.3) // Adjusts the opacity during transitions.
-                                    .scaleEffect(phase.isIdentity ? 1 : 0.3) // Scales the Rectangle based on its scroll phase.
-                                    .offset(x: phase.isIdentity ? 0 : 20, // Moves the Rectangle horizontally
-                                            y: phase.isIdentity ? 0 : 20) // and vertically during transition.
-                            }
-                            .frame(width: geometry.size.width*0.9, height: geometry.size.height, alignment: .center)
+                                .scrollTransition { content, phase in
+                                    content
+                                        .opacity(phase.isIdentity ? 1 : 0.3) // Adjusts the opacity during transitions.
+                                        .scaleEffect(phase.isIdentity ? 1 : 0.3) // Scales the Rectangle based on its scroll phase.
+                                        .offset(x: phase.isIdentity ? 0 : 20, // Moves the Rectangle horizontally
+                                                y: phase.isIdentity ? 0 : 20) // and vertically during transition.
+                                }
+                                .frame(width: geometry.size.width*0.9, height: geometry.size.height*0.9, alignment: .center)
+                        }
                     }
+                    .scrollTargetLayout() // Marks the parent layout as a target for scroll behaviors, aiding alignment.
                 }
-                .scrollTargetLayout() // Marks the parent layout as a target for scroll behaviors, aiding alignment.
+                .scrollTargetBehavior(.viewAligned) // Aligns scrolled content based on the geometries of the views.
+                .safeAreaPadding(.horizontal, 21) // Applies horizontal padding to respect the device's safe area.
+                .scrollPosition(id: $scrollPosition)
+                
+                PageControl(numberOfPages: items.count, currentPage: $scrollPosition)
             }
-            .scrollTargetBehavior(.viewAligned) // Aligns scrolled content based on the geometries of the views.
-            .safeAreaPadding(.horizontal, 21) // Applies horizontal padding to respect the device's safe area.
         }
     }
     

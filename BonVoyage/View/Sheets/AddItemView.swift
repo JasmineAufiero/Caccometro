@@ -27,7 +27,7 @@ struct AddItemView: View {
                 Text("Malus").tag(2)
             }
             .pickerStyle(.segmented)
-            .padding()
+            .padding(.horizontal)
             
             switch selection {
             case 0:
